@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* Nama warna disesuaikan dengan screenshot */
+  --color-saffron: #f3bd2d;
+  --color-buff: #f5d982;
+  --color-liver: #682c18;
+  --color-weldon: #7a90b2;
+  --color-pale-silver: #cbc2b8;
+  --color-outer-space: #444344;
+
+  /* Opsional: Jika ingin menjadikannya sebagai brand colors */
+  --color-primary: var(--color-saffron);
+  --color-secondary: var(--color-weldon);
+  --color-accent: var(--color-liver);
+  --color-neutral-bg: var(--color-pale-silver);
+}
+
+/* Base styles tambahan untuk nuansa Brutalism */
+@layer base {
+  body {
+    @apply bg-[--color-pale-silver] text-[--color-outer-space];
+  }
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
