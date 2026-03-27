@@ -1,7 +1,12 @@
 "use client";
 import { useState } from "react";
 import { calculateProfitLoss, formatIDR } from "@/lib/calculations";
-import { Product } from "@/types";
+import { Product, ProfitLossProduct } from "@/types";
+
+type CalculationResult = Pick<
+  ProfitLossProduct,
+  "totalCost" | "totalRevenue" | "profit" | "margin"
+>;
 
 export default function ProfitLossMode({
   onSave,
@@ -15,7 +20,7 @@ export default function ProfitLossMode({
     price: 0,
     qty: 0,
   });
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<CalculationResult | null>(null);
 
   const handleCalculate = () => {
     const res = calculateProfitLoss({
