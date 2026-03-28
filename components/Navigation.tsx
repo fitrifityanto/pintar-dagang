@@ -9,7 +9,7 @@ export default function Navigation() {
   const navItems = [
     { name: "Home", href: "/", icon: <Home size={20} /> },
     { name: "Hitung", href: "/calculator", icon: <Calculator size={20} /> },
-    { name: "Daftar", href: "/products", icon: <LayoutList size={20} /> },
+    { name: "Produk", href: "/products", icon: <LayoutList size={20} /> },
   ];
 
   return (
