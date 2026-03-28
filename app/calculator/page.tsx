@@ -7,23 +7,7 @@ import ProfitLossMode from "@/components/ProfitLossMode";
 import PricingMode from "@/components/PricingMode";
 import ProductList from "@/components/ProductList";
 import Link from "next/link";
-
-const LogoPD = () => (
-  <div className="relative flex items-center justify-center w-10 h-10 group cursor-pointer">
-    {/* Shadow Layer */}
-    <div className="absolute inset-0 bg-outer-space translate-x-1 translate-y-1 transition-transform group-hover:translate-x-0 group-hover:translate-y-0" />
-
-    {/* Main Box */}
-    <div className="absolute inset-0 bg-saffron border-2 border-outer-space flex items-center justify-center -rotate-2 group-hover:rotate-0 transition-transform">
-      <span className="font-black text-xl tracking-tighter text-outer-space select-none">
-        P<span className="text-liver">D</span>
-      </span>
-    </div>
-
-    {/* Decorative Sparkle (Khas Neo-Brutalism) */}
-    <div className="absolute -top-1 -right-1 w-3 h-3 bg-white border-2 border-outer-space rotate-45 group-hover:scale-125 transition-transform" />
-  </div>
-);
+import Image from "next/image";
 
 export default function CalculatorPage() {
   const [activeMode, setActiveMode] = useState<"profit-loss" | "pricing">(
@@ -49,13 +33,21 @@ export default function CalculatorPage() {
       {/* 1. STICKY PROPER HEADER */}
       <nav className="sticky top-0 z-[100] bg-white border-b-4 border-outer-space px-4 md:px-12 py-4 shadow-[0_4px_0_0_rgba(0,0,0,0.05)]">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group flex items-center gap-4">
-            <LogoPD /> {/* Masukkan komponen logo di sini */}
+          <Link href="/" className="group flex items-center gap-3 md:gap-4">
+            {/* Logo Image Pengganti Komponen LogoPD */}
+            <div className="relative flex-shrink-0 transform -rotate-3 transition-all duration-300 group-hover:rotate-2 group-hover:scale-110">
+              <img
+                src="/logo.png"
+                alt="Logo Pintar Dagang"
+                className="w-10 h-10 md:w-12 md:h-12 object-contain"
+              />
+            </div>
+
             <div className="flex flex-col leading-none">
-              <span className="font-black text-2xl uppercase tracking-tighter text-outer-space">
+              <span className="font-black text-xl md:text-2xl uppercase tracking-tighter text-outer-space">
                 Pintar Dagang
               </span>
-              <span className="font-bold text-[9px] uppercase tracking-[0.2em] text-liver/60">
+              <span className="font-bold text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-liver/60 mt-1 md:mt-0">
                 Hitung Tepat, Bisnis Sehat
               </span>
             </div>
@@ -63,9 +55,9 @@ export default function CalculatorPage() {
 
           <div className="flex items-center gap-4">
             <span className="hidden md:inline-block font-mono text-[10px] font-black bg-outer-space text-white px-2 py-1 uppercase tracking-widest">
-              v1.0.stable
+              v1.0
             </span>
-            <div className="h-8 w-1 bg-outer-space/10" />
+            <div className="h-8 w-1 bg-outer-space/10 hidden md:block" />
             <Link
               href="/"
               className="text-xs font-black uppercase underline underline-offset-4 hover:text-liver transition-colors"
@@ -116,12 +108,35 @@ export default function CalculatorPage() {
         </div>
       </div>
 
-      {/* FOOTER SEDERHANA */}
-      <footer className="mt-20 py-12 border-t-4 border-outer-space bg-pale-silver/30">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="font-black text-[10px] uppercase tracking-[0.5em] text-outer-space/40">
-            Pintar Dagang • Tools untuk UMKM Mandiri
-          </p>
+      {/* FOOTER TICKER STYLE */}
+      <footer className="mt-20 border-t-4 border-outer-space">
+        {/* Top Bar Slogan */}
+        <div className="bg-outer-space py-4 overflow-hidden">
+          <div className="whitespace-nowrap flex gap-12 animate-pulse">
+            {[1, 2, 3].map((i) => (
+              <span
+                key={i}
+                className="text-white font-black text-xs uppercase tracking-[0.5em]"
+              >
+                Pintar Dagang • Hitung Tepat, Bisnis Sehat •
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Bar Info */}
+        <div className="bg-pale-silver/30 py-8 text-center border-t-4 border-outer-space">
+          <span className="font-bold text-[10px] uppercase tracking-tighter text-outer-space">
+            ©{" "}
+            {new Date().getFullYear() > 2026
+              ? `2026 - ${new Date().getFullYear()}`
+              : "2026"}
+            <span className="mx-3 text-outer-space/20">|</span>
+            Made with passion by{" "}
+            <span className="bg-saffron text-outer-space px-2 py-0.5 border-2 border-outer-space">
+              fitnr
+            </span>
+          </span>
         </div>
       </footer>
     </main>
