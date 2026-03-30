@@ -1,11 +1,17 @@
+// lib/calculations.ts
 export function calculateProfitLoss(params: {
   variableCost: number;
   operationalCost: number;
   sellingPrice: number;
   quantitySold: number;
 }) {
+  // 1. Modal Variabel hanya modal per unit x jumlah laku
   const totalVariable = params.variableCost * params.quantitySold;
-  const totalOperational = params.operationalCost * params.quantitySold;
+
+  // 2. Operasional dijadikan Lump Sum (Total harian), TIDAK DIKALI qty
+  const totalOperational = params.operationalCost;
+
+  // 3. Total Keseluruhan
   const totalCost = totalVariable + totalOperational;
   const totalRevenue = params.sellingPrice * params.quantitySold;
   const profit = totalRevenue - totalCost;

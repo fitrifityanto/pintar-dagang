@@ -8,7 +8,6 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Kita pindahkan class pb-24 md:pb-0 ke sini agar beranda tidak ikut kena padding
     <div className="pb-24 md:pb-0">
       <Navigation />
       {children}

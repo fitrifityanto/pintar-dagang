@@ -1,8 +1,17 @@
 // components/ProductList.tsx
 "use client";
 import { Product } from "@/types";
-import { Trash2, Tag, BarChart3, ShoppingCart, Target } from "lucide-react";
+import {
+  Trash2,
+  Tag,
+  BarChart3,
+  ShoppingCart,
+  Target,
+  PackageSearch,
+  Calculator,
+} from "lucide-react";
 import { formatIDR } from "@/lib/calculations";
+import Link from "next/link";
 
 type Props = {
   products: Product[];
@@ -10,16 +19,45 @@ type Props = {
 };
 
 export default function ProductList({ products, onDelete }: Props) {
+  // --- DESAIN EMPTY STATE ---
   if (products.length === 0) {
     return (
-      <div className="border-4 border-dashed border-black p-12 text-center bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-        <p className="font-black text-xl text-gray-400 uppercase tracking-widest italic">
-          Data Belum Ada
-        </p>
+      <div className="border-4 border-outer-space bg-pale-silver p-10 md:p-16 shadow-[8px_8px_0px_0px_var(--color-outer-space)] text-center flex flex-col items-center gap-6 mt-8 animate-in fade-in slide-in-from-top-4 duration-500">
+        <div className="relative group">
+          <div className="absolute inset-0 bg-liver transform rotate-6 border-4 border-outer-space group-hover:rotate-0 transition-transform"></div>
+          <div className="relative border-4 border-outer-space p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,0.1)]">
+            <PackageSearch
+              size={64}
+              className="text-outer-space"
+              strokeWidth={1.5}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2 max-w-md mt-4">
+          <h3 className="font-black text-3xl md:text-4xl uppercase tracking-tighter text-outer-space transform -rotate-1 inline-block bg-white px-3 py-1 border-2 border-outer-space">
+            BELUM ADA HITUNGAN!
+          </h3>
+          <p className="font-bold text-sm md:text-base text-outer-space/70 leading-relaxed pt-2">
+            Ups, sepertinya kamu belum menyimpan data apapun. Ayo hitung modal
+            produk baru atau cek laba rugi jualanmu sekarang!
+          </p>
+        </div>
+
+        <Link
+          href="/calculator"
+          className="mt-6 bg-saffron text-outer-space font-black py-4 px-10 border-4 border-outer-space flex justify-center items-center gap-3
+                     hover:bg-liver hover:text-white transition-all uppercase tracking-widest text-base
+                     shadow-[6px_6px_0px_0px_var(--color-outer-space)] active:translate-y-1 active:shadow-none"
+        >
+          <Calculator size={20} />
+          Mulai Menghitung →
+        </Link>
       </div>
     );
   }
 
+  // --- RENDERING DAFTAR PRODUK ---
   return (
     <div className="grid gap-8">
       {products.map((product) => (
@@ -27,7 +65,7 @@ export default function ProductList({ products, onDelete }: Props) {
           key={product.id}
           className="bg-pale-silver border-4 border-outer-space p-5 shadow-[8px_8px_0px_0px_var(--color-outer-space)] relative hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all group"
         >
-          {/* Tombol Hapus - Gaya Brutalist Merah Hati (Liver) */}
+          {/* Tombol Hapus */}
           <button
             onClick={() => onDelete(product.id)}
             className="absolute -top-4 -right-4 bg-liver p-2 border-4 border-outer-space hover:bg-red-600 transition-transform hover:scale-110 shadow-[4px_4px_0px_0px_var(--color-outer-space)] z-20 cursor-pointer"
@@ -35,7 +73,7 @@ export default function ProductList({ products, onDelete }: Props) {
             <Trash2 size={20} className="text-white" />
           </button>
 
-          {/* Label Tipe Mode - Mengambang di kiri atas */}
+          {/* Label Tipe Mode */}
           <div
             className={`absolute -top-4 -left-4 px-3 py-1 border-4 border-outer-space font-black text-xs uppercase shadow-[4px_4px_0px_0px_var(--color-outer-space)] z-10 
             ${product.mode === "profit-loss" ? "bg-saffron text-outer-space" : "bg-weldon text-white"}`}
@@ -82,14 +120,14 @@ export default function ProductList({ products, onDelete }: Props) {
                   </p>
                 </div>
 
-                {/* Section Detail Biaya Baru untuk Laba Rugi */}
+                {/* Section Detail Biaya Diperbarui ke Logika Lump Sum */}
                 <div className="col-span-2 border-2 border-outer-space border-dashed p-3 bg-pale-silver/50 text-[10px] font-bold space-y-1">
                   <div className="flex justify-between items-center text-outer-space/70">
                     <span className="uppercase italic">Rincian Modal:</span>
                     <span>
-                      ({formatIDR(product.variableCost)} +{" "}
-                      {formatIDR(product.operationalCost)}) ×{" "}
-                      {product.quantitySold} Unit
+                      ({formatIDR(product.variableCost)} ×{" "}
+                      {product.quantitySold}) +{" "}
+                      {formatIDR(product.operationalCost)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center font-black text-outer-space border-t border-outer-space/10 pt-1">
@@ -132,7 +170,7 @@ export default function ProductList({ products, onDelete }: Props) {
                   </div>
                 </div>
 
-                {/* Section Detail HPP & Margin (Tambahan Baru) */}
+                {/* Section Detail HPP & Margin */}
                 <div className="border-2 border-outer-space border-dashed p-3 bg-pale-silver/50 text-[10px] font-bold space-y-2">
                   <div className="flex justify-between items-center text-outer-space/70">
                     <span className="uppercase">Detail Biaya:</span>
