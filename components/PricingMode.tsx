@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { calculatePricing, formatIDR } from "@/lib/calculations";
 import { Product } from "@/types";
+import { Wand2 } from "lucide-react";
 
 type Props = {
   onSave: (p: Product) => void;
@@ -22,6 +23,19 @@ export default function PricingMode({ onSave }: Props) {
     recommendedPrice: number;
   } | null>(null);
 
+  const handleFillDummy = () => {
+    setForm({
+      name: "GUDEG MERCON KEMASAN",
+      raw: 12000, // Nangka, krecek, bumbu
+      pkg: 2500, // Thinwall + stiker
+      fixed: 300000, // Gas, listrik bulanan
+      target: 150, // Target porsi sebulan
+      margin: 40, // Pengen untung 40%
+    });
+    // Reset hasil kalau ada hasil sebelumnya
+    setResult(null);
+  };
+
   const handleCalculate = () => {
     const res = calculatePricing({
       rawMaterial: form.raw,
@@ -40,16 +54,14 @@ export default function PricingMode({ onSave }: Props) {
       name: form.name,
       mode: "pricing",
       createdAt: Date.now(),
-      // Kirim detail data mentah agar bisa ditampilkan di list
       rawMaterial: form.raw,
       packaging: form.pkg,
       monthlyFixedCost: form.fixed,
       targetProduction: form.target,
-      targetMargin: form.margin, // Ini untuk "Min. Margin"
+      targetMargin: form.margin,
       hpp: result.hpp,
       recommendedPrice: result.recommendedPrice,
     });
-    // Reset Form
     setForm({ name: "", raw: 0, pkg: 0, fixed: 0, target: 0, margin: 0 });
     setResult(null);
   };
@@ -62,7 +74,15 @@ export default function PricingMode({ onSave }: Props) {
 `;
 
   return (
-    <div className="bg-weldon border-4 border-outer-space p-6 shadow-[10px_10px_0px_0px_var(--color-outer-space)] text-outer-space">
+    <div className="relative bg-weldon border-4 border-outer-space p-6 shadow-[10px_10px_0px_0px_var(--color-outer-space)] text-outer-space mt-4">
+      {/* Tombol Data Contoh */}
+      <button
+        onClick={handleFillDummy}
+        className="absolute -top-4 -right-4 md:-top-5 md:-right-5 z-10 bg-white border-4 border-outer-space px-3 py-2 text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2 shadow-[4px_4px_0px_0px_var(--color-saffron)] hover:bg-saffron hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+      >
+        <Wand2 size={14} className="text-liver" />
+        Isi Data Contoh
+      </button>
       <div className="flex flex-col gap-5">
         {/* Nama Produk */}
         <div className="space-y-1">
