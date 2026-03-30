@@ -1,3 +1,4 @@
+// components/LandingNavigation.tsx
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -47,7 +48,8 @@ export default function LandingNavigation() {
   return (
     <>
       {/* --- DESKTOP TOP NAVBAR --- */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white border-b-4 border-outer-space px-6 md:px-12 py-4 shadow-[0_4px_0_0_rgba(0,0,0,0.05)]">
+      {/* PERBAIKAN: Menambahkan 'hidden md:block' di sini agar navbar atas hilang di mobile */}
+      <nav className="hidden md:block fixed top-0 left-0 right-0 z-[100] bg-white border-b-4 border-outer-space px-6 md:px-12 py-4 shadow-[0_4px_0_0_rgba(0,0,0,0.05)]">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="#hero" className="group flex items-center gap-3">
             <div className="relative w-8 h-8 md:w-10 md:h-10 transform -rotate-3 transition-all duration-300 group-hover:rotate-2">
