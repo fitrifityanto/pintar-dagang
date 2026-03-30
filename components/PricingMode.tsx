@@ -66,7 +66,6 @@ export default function PricingMode({ onSave }: Props) {
     setResult(null);
   };
 
-  // Menghapus mb-2 agar spacing rapi mengikuti wrapper space-y-1
   const inputStyle = `
   w-full p-4 bg-pale-silver border-4 border-outer-space 
   font-black text-outer-space placeholder:text-outer-space/40 

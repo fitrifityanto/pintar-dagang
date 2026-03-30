@@ -91,7 +91,7 @@ export default function ProfitLossMode({
             Nama Produk / Catatan
           </label>
           <input
-            placeholder="CONTOH: BAKMI GORENG (MINGGU 1)"
+            placeholder="CONTOH: DIMSUM AYAM (MINGGU 1)"
             className={inputStyle}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -134,8 +134,7 @@ export default function ProfitLossMode({
               }
             />
             <span className={helperStyle}>
-              *Pengeluaran lumsump (Gas LPG, uang bensin, parkir, es batu
-              balok).
+              *Biaya operasional (Contoh: Bensin, gas, listrik, parkir)
             </span>
           </div>
           <div className="space-y-1">
