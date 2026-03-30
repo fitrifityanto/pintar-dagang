@@ -9,7 +9,7 @@ export default function LandingPage() {
     <div className="bg-[#F1F1F1] text-outer-space selection:bg-saffron selection:text-outer-space pb-18 md:pb-0">
       <LandingNavigation />
 
-      <main className="flex flex-col items-center overflow-hidden pt-20">
+      <main className="flex flex-col items-center overflow-hidden md:pt-20">
         {/* --- SECTION 1: HERO --- */}
         <section
           id="hero"
