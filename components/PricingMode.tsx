@@ -66,12 +66,17 @@ export default function PricingMode({ onSave }: Props) {
     setResult(null);
   };
 
+  // Menghapus mb-2 agar spacing rapi mengikuti wrapper space-y-1
   const inputStyle = `
   w-full p-4 bg-pale-silver border-4 border-outer-space 
   font-black text-outer-space placeholder:text-outer-space/40 
   focus:bg-white focus:outline-none focus:ring-0 
-  transition-all text-lg mb-2
+  transition-all text-lg
 `;
+
+  // Helper style disesuaikan agar kontras dengan bg-weldon
+  const helperStyle =
+    "text-[10px] font-bold text-white/80 leading-tight mt-1 inline-block";
 
   return (
     <div className="relative bg-weldon border-4 border-outer-space p-6 shadow-[10px_10px_0px_0px_var(--color-outer-space)] text-outer-space mt-4">
@@ -83,7 +88,8 @@ export default function PricingMode({ onSave }: Props) {
         <Wand2 size={14} className="text-liver" />
         Isi Data Contoh
       </button>
-      <div className="flex flex-col gap-5">
+
+      <div className="flex flex-col gap-5 mt-2">
         {/* Nama Produk */}
         <div className="space-y-1">
           <label className="font-black uppercase text-xs tracking-widest text-white">
@@ -95,6 +101,10 @@ export default function PricingMode({ onSave }: Props) {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
+          <span className={helperStyle}>
+            *Masukkan nama produk atau varian yang ingin ditentukan harga
+            jualnya.
+          </span>
         </div>
 
         {/* Grid 1: Variable Costs */}
@@ -105,12 +115,16 @@ export default function PricingMode({ onSave }: Props) {
             </label>
             <input
               type="number"
+              placeholder="0"
               className={inputStyle}
               value={form.raw || ""}
               onChange={(e) =>
                 setForm({ ...form, raw: Number(e.target.value) })
               }
             />
+            <span className={helperStyle}>
+              *Total modal bahan baku untuk membuat 1 porsi/buah produk.
+            </span>
           </div>
           <div className="space-y-1">
             <label className="font-black uppercase text-xs tracking-widest text-white">
@@ -118,12 +132,16 @@ export default function PricingMode({ onSave }: Props) {
             </label>
             <input
               type="number"
+              placeholder="0"
               className={inputStyle}
               value={form.pkg || ""}
               onChange={(e) =>
                 setForm({ ...form, pkg: Number(e.target.value) })
               }
             />
+            <span className={helperStyle}>
+              *Biaya untuk wadah, plastik, kardus, atau stiker per 1 produk.
+            </span>
           </div>
         </div>
 
@@ -135,12 +153,17 @@ export default function PricingMode({ onSave }: Props) {
             </label>
             <input
               type="number"
+              placeholder="0"
               className={inputStyle}
               value={form.fixed || ""}
               onChange={(e) =>
                 setForm({ ...form, fixed: Number(e.target.value) })
               }
             />
+            <span className={helperStyle}>
+              *Pengeluaran rutin bulanan (listrik, air, kuota, gaji, sewa
+              tempat).
+            </span>
           </div>
           <div className="space-y-1">
             <label className="font-black uppercase text-xs tracking-widest text-white">
@@ -148,12 +171,16 @@ export default function PricingMode({ onSave }: Props) {
             </label>
             <input
               type="number"
+              placeholder="0"
               className={inputStyle}
               value={form.target || ""}
               onChange={(e) =>
                 setForm({ ...form, target: Number(e.target.value) })
               }
             />
+            <span className={helperStyle}>
+              *Estimasi jumlah produk yang akan dibuat/dijual dalam 1 bulan.
+            </span>
           </div>
         </div>
 
@@ -164,18 +191,23 @@ export default function PricingMode({ onSave }: Props) {
           </label>
           <input
             type="number"
+            placeholder="0"
             className={inputStyle}
             value={form.margin || ""}
             onChange={(e) =>
               setForm({ ...form, margin: Number(e.target.value) })
             }
           />
+          <span className={helperStyle}>
+            *Persentase keuntungan bersih yang ingin didapat dari setiap
+            penjualan.
+          </span>
         </div>
 
         <button
           onClick={handleCalculate}
           className="bg-saffron text-outer-space font-black py-5 border-4 border-outer-space 
-                     hover:bg-buff transition-all uppercase tracking-[0.2em] text-xl mt-2
+                     hover:bg-buff transition-all uppercase tracking-[0.2em] text-xl mt-4
                      shadow-[6px_6px_0px_0px_var(--color-liver)] active:translate-y-1 active:shadow-none"
         >
           🎯 HITUNG HARGA IDEAL
@@ -183,7 +215,7 @@ export default function PricingMode({ onSave }: Props) {
       </div>
 
       {result && (
-        <div className="mt-10 bg-pale-silver border-4 border-outer-space shadow-[8px_8px_0px_0px_var(--color-outer-space)] overflow-hidden">
+        <div className="mt-10 bg-pale-silver border-4 border-outer-space shadow-[8px_8px_0px_0px_var(--color-outer-space)] overflow-hidden animate-in fade-in slide-in-from-top-4">
           {/* Header */}
           <div className="bg-liver text-white p-3 text-center font-black uppercase tracking-widest text-sm">
             STRATEGI PENETAPAN HARGA
@@ -196,15 +228,15 @@ export default function PricingMode({ onSave }: Props) {
                 Detail HPP
               </span>
               <div className="font-bold text-sm space-y-2">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-end">
                   <span>Modal Bahan & Kemasan:</span>
                   <span>{formatIDR(form.raw + form.pkg)}</span>
                 </div>
-                <div className="flex justify-between border-b border-outer-space/20 pb-2">
+                <div className="flex justify-between items-end border-b border-outer-space/20 pb-2">
                   <span>Beban Tetap per Produk:</span>
                   <span>{formatIDR(form.fixed / form.target)}</span>
                 </div>
-                <div className="flex justify-between pt-2">
+                <div className="flex justify-between items-end pt-2">
                   <span className="font-black uppercase">
                     Total HPP per Unit:
                   </span>
@@ -218,7 +250,7 @@ export default function PricingMode({ onSave }: Props) {
             {/* Recommended Price Box */}
             <div className="space-y-3">
               <h4 className="font-black text-xs uppercase tracking-tighter text-liver flex items-center gap-2">
-                💰 REKOMENDASI HARGA JUAL (MIn. Margin {form.margin}%):
+                💰 REKOMENDASI HARGA JUAL (Min. Margin {form.margin}%):
               </h4>
               <div className="bg-saffron border-4 border-outer-space p-6 shadow-[6px_6px_0px_0px_var(--color-liver)] text-center">
                 <p className="font-black text-4xl tracking-tighter">
