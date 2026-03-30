@@ -26,9 +26,8 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F1F1F1] text-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Navigation dan Footer dihapus dari sini */}
         {children}
       </body>
     </html>
